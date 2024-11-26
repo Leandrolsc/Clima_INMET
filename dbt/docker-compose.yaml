@@ -1,0 +1,43 @@
+
+services:
+  dbt_db:
+    image: postgres
+    container_name: airflow-dbt-db
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "1234"
+    volumes:
+      - C:\Users\leand\airflow-dbt\database:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dbt_prod:
+    build:
+      context: .
+      dockerfile: dockerfile  # Especifica o Dockerfile personalizado
+    container_name: dbt-prod
+    working_dir: /dbt  # Define o diretório de trabalho dentro do container
+    volumes:
+      - C:\Users\leand\airflow-dbt\dbt:/dbt  # Monta a pasta do projeto dbt local para o container
+    entrypoint: ["dbt"]  # Configura dbt como ponto de entrada
+    command: run
+
+
+  dbt_docs:
+    build:
+        context: .
+        dockerfile: dockerfile  # Reutiliza o mesmo Dockerfile
+    container_name: dbt-docs
+    working_dir: /dbt
+    volumes:
+      - C:\Users\leand\airflow-dbt\dbt:/dbt
+    entrypoint: ["dbt"]
+    command: docs serve --port 8081  # Inicia o servidor de documentação
+    ports:
+      - "8081:8081"  # Porta para acessar o servidor de documentação
+
