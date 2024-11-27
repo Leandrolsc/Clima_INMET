@@ -7,13 +7,8 @@ Link instalação airflow https://www.youtube.com/watch?v=E0D9IRHITVI
 
 Instalação do dbt:
 
+Segue dockerfile
 
 
 
-testar o dbt no docker dps:
-
-https://www.youtube.com/watch?v=mSXuh0szBGk 
-
-
-
-postgres:
+Utilização do docker para subir o airflow e o dbt

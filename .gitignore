@@ -2,3 +2,8 @@ arquivos/
 scripts/
 airflow/logs/
 database/
+
+dbt/target/
+dbt/dbt_packages/
+dbt/logs/
+logs/

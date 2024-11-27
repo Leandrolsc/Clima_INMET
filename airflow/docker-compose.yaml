@@ -71,13 +71,14 @@ x-airflow-common:
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
     # The following line can be used to set a custom config file, stored in the local config folder
     # If you want to use it, outcomment it and replace airflow.cfg with the name of your config file
-    # AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
+    AIRFLOW_CONFIG: '/opt/airflow/config/airflow.cfg'
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
     - C:\Users\leand\airflow-dbt\arquivos:/opt/airflow/arquivos
+    - ${AIRFLOW_PROJ_DIR:-.}/dbt:/opt/airflow/dbt
   user: "${AIRFLOW_UID:-50000}:0"
   depends_on:
     &airflow-common-depends-on
@@ -284,6 +285,36 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+
+        
+  dbt_sql_db:
+    image: postgres
+    container_name: airflow-dbt-sql
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: "1234"
+    volumes:
+      - C:\Users\leand\airflow-dbt\database:/var/lib/postgresql/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL","pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  dbt_docs:
+    build:
+        context: ./dbt
+        dockerfile: dockerfile  
+    container_name: dbt-docs
+    working_dir: /dbt
+    volumes:
+      - C:\Users\leand\airflow-dbt\airflow\dbt:/dbt
+    entrypoint: ["dbt"]
+    command: docs serve --port 8081  # Inicia o servidor de documentação
+    ports:
+      - "8081:8081"  # Porta para acessar o servidor de documentação
 
 volumes:
   postgres-db-volume:
