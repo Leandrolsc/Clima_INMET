@@ -1,7 +1,7 @@
 services:  
   dbt_sql_db:
     image: postgres
-    container_name: airflow-dbt-sql
+    container_name: Clima_DB
     ports:
       - "5432:5432"
     environment:
