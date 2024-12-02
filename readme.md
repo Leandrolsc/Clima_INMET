@@ -4,7 +4,7 @@
 
 ### Diagrama dos serviços e fluxo dos dados
 
-![desenho tecnico](images/Desenho Tecnico.png)
+![desenho tecnico](images/DesenhoTecnico.png)
 
 
 ### Materiais utilizados (até o momento):
