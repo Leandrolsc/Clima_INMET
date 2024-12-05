@@ -16,3 +16,4 @@
 4. [DBT](https://docs.getdbt.com/best-practices/how-we-structure/1-guide-overview)
 5. [Docker](https://www.docker.com/)
 6. [Flask](https://mateus-dev-me.medium.com/como-criar-uma-api-rest-com-flask-29b6845f1f1c)
+7. [Tutorial dbt no airflow](https://ricardojr37.medium.com/orquestrando-seus-dbt-models-com-airflow-ea1cb5a0a6df)
