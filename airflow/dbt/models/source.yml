@@ -1,0 +1,19 @@
+
+
+sources:
+  - name: INMET
+    database: INMET
+    schema: public
+    tables:
+      - name: Temperatura_historico
+        description: >
+          Tabela com dados brutos dos CSV extraido do INMET.
+        columns:
+          - name: Data
+          - name: Temperatura
+          - name: Regiao
+          - name: UF
+          - name: Estacao
+          - name: Latitude
+          - name: Longitude
+          - name: Altitude

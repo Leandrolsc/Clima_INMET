@@ -1,6 +1,3 @@
-unidecode
-psycopg2-binary
-openpyxl
 dbt-core
 dbt-postgres
 astronomer-cosmos

@@ -65,8 +65,9 @@ def processar_arquivos(arquivos):
             arquivo = arquivo[arquivo['Temperatura'] != -9999]
 
             arquivo['Data'] = pd.to_datetime(arquivo['Data'])
-            #arquivo['Ano'] = arquivo['Data'].dt.year
-            #arquivo['Mes'] = arquivo['Data'].dt.month
+            arquivo['Tempo'] = arquivo['Data'].dt.time
+            # arquivo['Ano'] = arquivo['Data'].dt.year
+            # arquivo['Mes'] = arquivo['Data'].dt.month
 
             
             cabecalho = pd.read_csv(arquivos

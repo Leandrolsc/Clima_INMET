@@ -287,6 +287,17 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+  
+  dbt_docs:
+    <<: *airflow-common
+    container_name: dbt-docs
+    working_dir: /dbt
+    volumes:
+      - C:\Users\leand\airflow-dbt\airflow\dbt:/dbt
+    entrypoint: ["dbt"]
+    command: docs serve --port 8081  # Inicia o servidor de documentação
+    ports:
+      - "8081:8081"  # Porta para acessar o servidor de documentação
 
       
 
