@@ -7,6 +7,10 @@
 ![desenho tecnico](images/DesenhoTecnico.png)
 
 
+### Dag de processamento do DBT utilizando o cosmos
+
+![Dag_DBT](images/DAG_Dbt.jpg)
+
 ### Materiais utilizados (até o momento):
 
 

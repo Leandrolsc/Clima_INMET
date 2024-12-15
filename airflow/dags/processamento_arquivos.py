@@ -108,6 +108,26 @@ def processamento_arquivos():
     with ThreadPoolExecutor(max_workers=3) as executor:
         executor.map(processar_arquivos, arquivos)
 
+
+def criacao_index():
+    create_index_queries = [
+        f"""
+        CREATE INDEX IF NOT EXISTS idx_distinct_temperatura
+        ON public.{table_name} ("Data", "Tempo", "Temperatura", "Regiao", "UF", "Estacao", "Latitude", "Longitude", "Altitude");
+        """,
+        f"""
+        CREATE INDEX IF NOT EXISTS idx_temperatura_not_null
+        ON public.{table_name} ("Temperatura")
+        WHERE "Temperatura" IS NOT NULL;
+        """
+        ]
+    with engine.connect() as connection:
+            for query in create_index_queries:
+                connection.execute(query)
+                print(f"Executado: {query.strip()}")
+
+
+
 # Definição da DAG
 default_args = {
     'owner': 'airflow',
@@ -129,4 +149,8 @@ with DAG(
         python_callable=processamento_arquivos
     )
 
-    inserir_dados_task
+    criar_indices_task = PythonOperator(
+        task_id='criar_indices',
+        python_callable=criacao_index
+    )
+    inserir_dados_task >> criar_indices_task

@@ -2,7 +2,7 @@ dbt_prod:
   outputs:
     prod:
       type: postgres
-      host: localhost
+      host: [POSTGRES PATH]
       port: 5432
       database: INMET
       schema: public

@@ -1,4 +1,14 @@
-SELECT DISTINCT
+
+  
+    
+
+  create  table "INMET"."public"."fTemperatura__dbt_tmp"
+  
+  
+    as
+  
+  (
+    SELECT DISTINCT
              dCalendario."SKCalendario"
              ,dTempo."SKTempo"
              ,dEstacao."SKEstacao"
@@ -17,3 +27,5 @@ INNER JOIN "INMET"."public"."dRegiao" dRegiao
     AND dRegiao."UF" = fato."UF"
 INNER JOIN "INMET"."public"."dTempo" dTempo
     ON dTempo."Tempo" = fato."Tempo"
+  );
+  

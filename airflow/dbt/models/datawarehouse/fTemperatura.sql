@@ -3,7 +3,7 @@ SELECT DISTINCT
              ,dTempo."SKTempo"
              ,dEstacao."SKEstacao"
              ,dRegiao."SKRegiao"          
-            ,Temperatura
+            ,fato."Temperatura"
 FROM {{ ref("temperatura_tratado") }} fato
 INNER JOIN {{ ref("dCalendario") }} dCalendario
     ON dCalendario."Data" = fato."Data"

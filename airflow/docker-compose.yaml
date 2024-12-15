@@ -293,7 +293,7 @@ services:
     container_name: dbt-docs
     working_dir: /dbt
     volumes:
-      - C:\Users\leand\airflow-dbt\airflow\dbt:/dbt
+      -.\dbt:/dbt
     entrypoint: ["dbt"]
     command: docs serve --port 8081  # Inicia o servidor de documentação
     ports:
