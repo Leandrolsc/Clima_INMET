@@ -1,0 +1,4 @@
+fastparquet
+pyarrow
+streamlit
+geopy
