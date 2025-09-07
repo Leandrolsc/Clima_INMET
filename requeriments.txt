@@ -2,3 +2,5 @@ fastparquet
 pyarrow
 streamlit
 geopy
+google-cloud-bigquery
+python-dotenv

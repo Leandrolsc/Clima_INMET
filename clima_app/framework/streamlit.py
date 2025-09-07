@@ -10,9 +10,14 @@ from use_cases.get_estados import GetEstados
 from use_cases.get_cidades_por_estado import GetCidadesPorEstado
 from use_cases.pesquisar_por_estado_cidade_e_tempo import PesquisarPorEstadoCidadeETempo
 
-# Caminho do arquivo Parquet
-data_source = r'arquivos\clima_inmet_aggregated.parquet'
-repo = ClimaRepository(data_source)
+# Configurações do BigQuery
+project_id = "clima-inmet"
+dataset_id = "clima_agregado"
+key_path = r"c:\Users\leand\github_projects\Clima_INMET\clima_app\key\clima-inmet-a6682ba05327.json"
+
+
+# Instanciar o repositório com BigQuery
+repo = ClimaRepository(project_id, dataset_id, key_path)
 
 # Instanciar use cases
 get_estados_use_case = GetEstados(repo)
@@ -34,10 +39,8 @@ data_fim = st.date_input('Data de Fim', datetime(2023, 12, 31))
 
 # Botão de pesquisa
 if st.button('Pesquisar'):
-    resultados = pesquisar_por_estado_cidade_e_tempo_use_case.execute(estado, cidade, data_inicio, data_fim)
-    st.write(resultados)
-    # if resultados:
-    #     for clima in resultados:
-    #         st.write(f"Data: {clima.Data}, Regiao: {clima.Regiao}, UF: {clima.UF}, Estacao: {clima.Estacao}, Max: {clima.Max_Temperatura}, Min: {clima.Min_Temperatura}, Med: {clima.Med_Temperatura}")
-    # else:
-    #     st.write("Nenhum resultado encontrado para os critérios de pesquisa selecionados.")
+    resultados = pesquisar_por_estado_cidade_e_tempo_use_case.execute(estado, cidade, data_inicio, data_fim)  
+    if not resultados.empty:
+        st.write(resultados)
+    else:
+        st.write("Nenhum resultado encontrado para os critérios de pesquisa selecionados.")

@@ -1,3 +1,8 @@
 INMET/
 INMET_Parquet/
+__pycache__/
+key/
+.env
 scripts/
+framework/
+interface_adapters/
